@@ -1,54 +1,56 @@
-var React = require('react');
-var AceEditor  = require('../src/ace.jsx');
+/* eslint-disable no-console */
+import React from 'react';
+import AceEditor from '../src/ace.js';
 
-var brace = require("brace");
-require('brace/mode/java')
-require('brace/mode/javascript')
+// load used syntax highlighting
+import 'brace/mode/java';
+import 'brace/mode/javascript';
 
-require('brace/theme/github')
-require('brace/theme/monokai')
-require('brace/theme/solarized_light')
+// load used themes
+import 'brace/theme/github';
+import 'brace/theme/monokai';
+import 'brace/theme/solarized_light';
 
-function onLoad(editor) {
-  console.log('i\'ve loaded');
-}
+const defaultValue = `const onLoad = (editor) => {
+    console.log('i\'ve loaded');
+};`;
 
-function onChange(newValue) {
-  console.log('change',newValue)
-}
+const App = React.createClass({
+    getInitialState() {
+        return {
+            theme: 'monokai',
+            fontSize: 14,
+            height: '6em',
+        };
+    },
+    reloadProps() {
+        this.setState({
+            theme: 'solarized_light',
+            fontSize: 40,
+            height: '8em',
+        });
+    },
+    render() {
+        return (
+            <div>
+                <h1>React-Ace example using Brace</h1>
+                <h2>Mode: java, theme: github</h2>
+                <AceEditor mode="java" theme="github" name="blah1" height="6em"
+                    onChange={(newValue) => console.log('Change in first editor', newValue)} />
 
-// render a first
-React.render(
-  <AceEditor
-    mode="java"
-    theme="github"
-    name="blah1"
-    height="6em"
-    onChange={onChange}
-    />,
-  document.getElementById('example')
-);
+                <h2>Mode: javascript, theme: monokai</h2>
+                <AceEditor mode="javascript" theme={this.state.theme}
+                    fontSize={this.state.fontSize} height={this.state.height}
+                    value={defaultValue} name="blah2"
+                    onLoad={() => console.log('Second editor loaded!')} />
+
+                <button onClick={this.reloadProps}>Reload NEW! Props</button>
+            </div>
+        );
+    },
+});
 
 
-
-var defaultValue = "function onLoad(editor) { \n  console.log(\"i've loaded\");\n}";
 //render a second
-React.render(
-  <AceEditor
-    mode="javascript"
-    theme="monokai"
-    name="blah2"
-    onLoad={onLoad}
-    fontSize={14}
-    height="6em"
-    value={defaultValue}
-  />,
-  document.getElementById('example2')
-);
+React.render(<App />, document.getElementById('react'));
 
-global.reloadProps = function () {
-  React.render(
-  <AceEditor mode="javascript" theme="solarized_light" name="blah2" fontSize={40} height="8em"/>,
-  document.getElementById('example2')
-);
-}

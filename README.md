@@ -1,12 +1,12 @@
-#React-Ace
+# React-Ace
 
 A react component for Ace / Brace
 
-##Install
+## Install
 
 `npm install react-ace`
 
-##Usage
+## Usage
 
 ```javascript
 var React = require('react');
