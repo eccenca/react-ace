@@ -12,6 +12,7 @@ const AceEditor = React.createClass({
         fontSize: React.PropTypes.number,
         showGutter: React.PropTypes.bool,
         onChange: React.PropTypes.func,
+        defaultValue: React.PropTypes.string,
         value: React.PropTypes.string,
         onLoad: React.PropTypes.func,
         maxLines: React.PropTypes.number,
@@ -26,6 +27,7 @@ const AceEditor = React.createClass({
             theme: '',
             height: '500px',
             width: '500px',
+            defaultValue: '',
             value: '',
             fontSize: 12,
             showGutter: true,
@@ -49,7 +51,7 @@ const AceEditor = React.createClass({
         this.editor.setTheme('ace/theme/' + this.props.theme);
         this.editor.setFontSize(this.props.fontSize);
         this.editor.on('change', this.onChange);
-        this.editor.setValue(this.props.value);
+        this.editor.setValue(this.props.defaultValue || this.props.value);
         this.editor.setOption('maxLines', this.props.maxLines);
         this.editor.setOption('readOnly', this.props.readOnly);
         this.editor.setOption('highlightActiveLine', this.props.highlightActiveLine);

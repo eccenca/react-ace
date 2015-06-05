@@ -41,7 +41,7 @@ const App = React.createClass({
                 <h2>Mode: javascript, theme: monokai</h2>
                 <AceEditor mode="javascript" theme={this.state.theme}
                     fontSize={this.state.fontSize} height={this.state.height}
-                    value={defaultValue} name="blah2"
+                    defaultValue={defaultValue} name="blah2"
                     onLoad={() => console.log('Second editor loaded!')} />
 
                 <button onClick={this.reloadProps}>Reload NEW! Props</button>
@@ -53,4 +53,3 @@ const App = React.createClass({
 
 //render a second
 React.render(<App />, document.getElementById('react'));
-

@@ -3,6 +3,7 @@ coverage/
 
 # compiled
 example/example.min.js
+example/example.min.js.map
 
 # node modules
 node_modules
