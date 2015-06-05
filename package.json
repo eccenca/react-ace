@@ -1,6 +1,6 @@
 {
   "name": "react-ace",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A react component for Ace Editor",
   "main": "build/react-ace.min.js",
   "es6": "index.js",
@@ -11,11 +11,13 @@
     "prepublish": "npm run build"
   },
   "author": "James Hrisho",
-  "contributors": [{
+  "contributors": [
+    {
       "name": "Tim Ermilov",
       "email": "yamalight@gmail.com",
-      "url" : "http://codezen.net/"
-  }],
+      "url": "http://codezen.net/"
+    }
+  ],
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.0",
