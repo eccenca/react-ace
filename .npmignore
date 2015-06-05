@@ -4,3 +4,6 @@
 
 # ignore coverage report
 coverage/
+
+# node modules
+node_modules/
