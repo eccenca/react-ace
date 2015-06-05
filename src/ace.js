@@ -1,4 +1,5 @@
-/* eslint max-statements: [1, 15] */
+/* eslint max-statements: [1, 18] */
+/* eslint complexity: [1, 10] */
 import React from 'react';
 import ace from 'brace';
 
@@ -64,26 +65,33 @@ const AceEditor = React.createClass({
     },
 
     componentWillReceiveProps(nextProps) {
-        // destroy old editor
-        this.editor.destroy();
-        // create new one with new props
-        this.editor = ace.edit(nextProps.name);
-        this.editor.getSession().setMode('ace/mode/' + nextProps.mode);
-        this.editor.setTheme('ace/theme/' + nextProps.theme);
-        this.editor.setFontSize(nextProps.fontSize);
-        this.editor.setOption('maxLines', nextProps.maxLines);
-        this.editor.setOption('readOnly', nextProps.readOnly);
-        this.editor.setOption('highlightActiveLine', nextProps.highlightActiveLine);
-        this.editor.setShowPrintMargin(nextProps.setShowPrintMargin);
-
-        if (this.editor.getValue() !== nextProps.value) {
+        // only update props if they are changed
+        if (nextProps.mode !== this.props.mode) {
+            this.editor.getSession().setMode('ace/mode/' + nextProps.mode);
+        }
+        if (nextProps.theme !== this.props.theme) {
+            this.editor.setTheme('ace/theme/' + nextProps.theme);
+        }
+        if (nextProps.fontSize !== this.props.fontSize) {
+            this.editor.setFontSize(nextProps.fontSize);
+        }
+        if (nextProps.maxLines !== this.props.maxLines) {
+            this.editor.setOption('maxLines', nextProps.maxLines);
+        }
+        if (nextProps.readOnly !== this.props.readOnly) {
+            this.editor.setOption('readOnly', nextProps.readOnly);
+        }
+        if (nextProps.highlightActiveLine !== this.props.highlightActiveLine) {
+            this.editor.setOption('highlightActiveLine', nextProps.highlightActiveLine);
+        }
+        if (nextProps.setShowPrintMargin !== this.props.setShowPrintMargin) {
+            this.editor.setShowPrintMargin(nextProps.setShowPrintMargin);
+        }
+        if (nextProps.value && this.editor.getValue() !== nextProps.value) {
             this.editor.setValue(nextProps.value);
         }
-
-        this.editor.renderer.setShowGutter(nextProps.showGutter);
-
-        if (nextProps.onLoad) {
-            nextProps.onLoad(this.editor);
+        if (nextProps.showGutter !== this.props.showGutter) {
+            this.editor.renderer.setShowGutter(nextProps.showGutter);
         }
     },
 
