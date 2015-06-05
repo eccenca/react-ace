@@ -2,6 +2,7 @@
 coverage/
 
 # compiled
+build/
 example/example.min.js
 example/example.min.js.map
 
