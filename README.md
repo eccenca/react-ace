@@ -1,20 +1,23 @@
-# React-Ace
+# React Ace Wrapper
 
-A react component for Ace / Brace
+A react wrapper component for Ace / Brace code editor.
+
+This is an enhanced fork of [react-ace](https://github.com/securingsincity/react-ace) package.
+Main difference is that this package publishes ES5 code that can be required without any pre-processing.
+This package works equally fine with both Browserify and Webpack.
 
 ## Install
 
-`npm install react-ace`
+`npm install react-ace-wrapper`
 
 ## Usage
 
 ```javascript
 var React = require('react');
-var brace  = require('brace');
-var AceEditor  = require('react-ace');
+var AceEditor  = require('react-ace-wrapper');
 
-require('brace/mode/java')
-require('brace/theme/github')
+require('brace/mode/java');
+require('brace/theme/github');
 
 function onChange(newValue) {
   console.log('change',newValue)
@@ -30,17 +33,9 @@ React.render(
   />,
   document.getElementById('example')
 );
-
-
 ```
 
-
-Looking for a way to set it up using webpack? Checkout this example :
-
-[React-Ace Webpack Example](https://github.com/securingsincity/react-ace-webpack-example) a working example using webpack
-
-
-Available Props
+### Available Props
 
 |Prop|Description|
 |-----|----------|
@@ -55,7 +50,8 @@ Available Props
 |highlightActiveLine| boolean|
 |readOnly| boolean|
 |maxLines| Maximum number of lines to be displayed|
-|value | String value you want to populate in the code highlighter|
+|defaultValue | String value you want to populate in the code highlighter upon creation|
+|value | String value you want to populate in the code highlighter (overrides defaultValue if present)|
 |onLoad| Function onLoad |
 |onChange| function that occurs on document change it has 1 argument value. see the example above|
 
@@ -63,34 +59,3 @@ Available Props
 ## Modes and Themes
 
 All modes and themes should be required through ```brace``` directly.  Browserify will grab these modes / themes through ```brace``` and will be available at run time.  See the example above.  This prevents bloating the compiled javascript with extra modes and themes for your application.
-
-### Example Modes
-
-* javascript
-* java
-* python
-* xml
-* ruby
-* sass
-* markdown
-* mysql
-* json
-* html
-* handlebars
-* golang
-* csharp
-* coffee
-* css
-
-### Example Themes
-
-* monokai
-* github
-* tomorrow
-* kuroir
-* twilight
-* xcode
-* textmate
-* solarized dark
-* solarized light
-* terminal

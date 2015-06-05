@@ -1,7 +1,7 @@
 {
-  "name": "react-ace",
-  "version": "2.0.3",
-  "description": "A react component for Ace Editor",
+  "name": "react-ace-wrapper",
+  "version": "1.0.0",
+  "description": "A React wrapper component for Ace Editor",
   "main": "build/react-ace.min.js",
   "es6": "index.js",
   "scripts": {
@@ -10,14 +10,11 @@
     "build": "gulp build",
     "prepublish": "npm run build"
   },
-  "author": "James Hrisho",
-  "contributors": [
-    {
-      "name": "Tim Ermilov",
-      "email": "yamalight@gmail.com",
-      "url": "http://codezen.net/"
-    }
-  ],
+  "author": {
+    "name": "Tim Ermilov",
+    "email": "yamalight@gmail.com",
+    "url": "http://codezen.net/"
+  },
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.0",
@@ -29,6 +26,7 @@
     "ace editor",
     "react-component",
     "react",
+    "wrapper",
     "brace"
   ],
   "dependencies": {
@@ -37,6 +35,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/securingsincity/react-ace.git"
+    "url": "https://github.com/eccenca/react-ace-wrapper.git"
   }
 }

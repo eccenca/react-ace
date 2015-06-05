@@ -37,7 +37,7 @@ const App = React.createClass({
     render() {
         return (
             <div>
-                <h1>React-Ace example using Brace</h1>
+                <h1>React Ace Wrapper example using Brace</h1>
                 <h2>Mode: java, theme: github</h2>
                 <AceEditor mode="javascript" theme="github" name="blah1" height="6em"
                     defaultValue={defaultValue}
