@@ -52,7 +52,7 @@ const AceEditor = React.createClass({
         this.editor.setTheme('ace/theme/' + this.props.theme);
         this.editor.setFontSize(this.props.fontSize);
         this.editor.on('change', this.onChange);
-        this.editor.setValue(this.props.defaultValue || this.props.value);
+        this.editor.setValue(this.props.defaultValue || this.props.value, -1);
         this.editor.setOption('maxLines', this.props.maxLines);
         this.editor.setOption('readOnly', this.props.readOnly);
         this.editor.setOption('highlightActiveLine', this.props.highlightActiveLine);
@@ -65,6 +65,8 @@ const AceEditor = React.createClass({
     },
 
     componentWillReceiveProps(nextProps) {
+        let cursorPosition = this._getCurrentCursorPosition();
+
         // only update props if they are changed
         if (nextProps.mode !== this.props.mode) {
             this.editor.getSession().setMode('ace/mode/' + nextProps.mode);
@@ -88,10 +90,21 @@ const AceEditor = React.createClass({
             this.editor.setShowPrintMargin(nextProps.setShowPrintMargin);
         }
         if (nextProps.value && this.editor.getValue() !== nextProps.value) {
-            this.editor.setValue(nextProps.value);
+            this.editor.setValue(nextProps.value, -1);
+            if(cursorPosition && typeof cursorPosition === "object") {
+                this.editor.getSession().getSelection().selectionLead.setPosition(cursorPosition.row, cursorPosition.column);
+            }
         }
         if (nextProps.showGutter !== this.props.showGutter) {
             this.editor.renderer.setShowGutter(nextProps.showGutter);
+        }
+    },
+
+    _getCurrentCursorPosition() {
+        let pos = this.editor.selection.getCursor() || {};
+        return {
+          row: pos.row || 0,
+          column: pos.column || 0
         }
     },
 
