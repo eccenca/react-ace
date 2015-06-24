@@ -20,7 +20,8 @@ const AceEditor = React.createClass({
         readOnly: React.PropTypes.bool,
         highlightActiveLine: React.PropTypes.bool,
         showPrintMargin: React.PropTypes.bool,
-        selectFirstLine: React.PropTypes.bool
+        selectFirstLine: React.PropTypes.bool,
+        wrapEnabled: React.PropTypes.bool
     },
     getDefaultProps() {
         return {
@@ -39,7 +40,8 @@ const AceEditor = React.createClass({
             readOnly: false,
             highlightActiveLine: true,
             showPrintMargin: true,
-            selectFirstLine: false
+            selectFirstLine: false,
+            wrapEnabled: true
         };
     },
     onChange() {
@@ -59,6 +61,7 @@ const AceEditor = React.createClass({
         this.editor.setOption('readOnly', this.props.readOnly);
         this.editor.setOption('highlightActiveLine', this.props.highlightActiveLine);
         this.editor.setShowPrintMargin(this.props.setShowPrintMargin);
+        this.editor.getSession().setUseWrapMode(this.props.wrapEnabled);
         this.editor.renderer.setShowGutter(this.props.showGutter);
 
         if (this.props.onLoad) {
@@ -90,6 +93,9 @@ const AceEditor = React.createClass({
         }
         if (nextProps.setShowPrintMargin !== this.props.setShowPrintMargin) {
             this.editor.setShowPrintMargin(nextProps.setShowPrintMargin);
+        }
+        if (nextProps.wrapEnabled !== this.props.wrapEnabled) {
+            this.editor.getSession().setUseWrapMode(nextProps.wrapEnabled);
         }
         if (nextProps.value && this.editor.getValue() !== nextProps.value) {
             this.editor.setValue(nextProps.value, (this.props.selectFirstLine === true ? -1 : null));

@@ -49,6 +49,7 @@ React.render(
 |showPrintMargin| boolean|
 |highlightActiveLine| boolean|
 |selectFirstLine| boolean|
+|wrapEnabled| boolean|
 |readOnly| boolean|
 |maxLines| Maximum number of lines to be displayed|
 |defaultValue | String value you want to populate in the code highlighter upon creation|
