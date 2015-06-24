@@ -41,7 +41,7 @@ const AceEditor = React.createClass({
             highlightActiveLine: true,
             showPrintMargin: true,
             selectFirstLine: false,
-            wrapEnabled: true
+            wrapEnabled: false
         };
     },
     onChange() {
