@@ -19,7 +19,9 @@ const AceEditor = React.createClass({
         maxLines: React.PropTypes.number,
         readOnly: React.PropTypes.bool,
         highlightActiveLine: React.PropTypes.bool,
-        showPrintMargin: React.PropTypes.bool
+        showPrintMargin: React.PropTypes.bool,
+        selectFirstLine: React.PropTypes.bool,
+        wrapEnabled: React.PropTypes.bool
     },
     getDefaultProps() {
         return {
@@ -37,7 +39,9 @@ const AceEditor = React.createClass({
             maxLines: null,
             readOnly: false,
             highlightActiveLine: true,
-            showPrintMargin: true
+            showPrintMargin: true,
+            selectFirstLine: false,
+            wrapEnabled: false
         };
     },
     onChange() {
@@ -52,11 +56,12 @@ const AceEditor = React.createClass({
         this.editor.setTheme('ace/theme/' + this.props.theme);
         this.editor.setFontSize(this.props.fontSize);
         this.editor.on('change', this.onChange);
-        this.editor.setValue(this.props.defaultValue || this.props.value);
+        this.editor.setValue(this.props.defaultValue || this.props.value, (this.props.selectFirstLine === true ? -1 : null));
         this.editor.setOption('maxLines', this.props.maxLines);
         this.editor.setOption('readOnly', this.props.readOnly);
         this.editor.setOption('highlightActiveLine', this.props.highlightActiveLine);
         this.editor.setShowPrintMargin(this.props.setShowPrintMargin);
+        this.editor.getSession().setUseWrapMode(this.props.wrapEnabled);
         this.editor.renderer.setShowGutter(this.props.showGutter);
 
         if (this.props.onLoad) {
@@ -65,6 +70,8 @@ const AceEditor = React.createClass({
     },
 
     componentWillReceiveProps(nextProps) {
+        let currentRange = this.editor.selection.getRange();
+
         // only update props if they are changed
         if (nextProps.mode !== this.props.mode) {
             this.editor.getSession().setMode('ace/mode/' + nextProps.mode);
@@ -87,8 +94,14 @@ const AceEditor = React.createClass({
         if (nextProps.setShowPrintMargin !== this.props.setShowPrintMargin) {
             this.editor.setShowPrintMargin(nextProps.setShowPrintMargin);
         }
+        if (nextProps.wrapEnabled !== this.props.wrapEnabled) {
+            this.editor.getSession().setUseWrapMode(nextProps.wrapEnabled);
+        }
         if (nextProps.value && this.editor.getValue() !== nextProps.value) {
-            this.editor.setValue(nextProps.value);
+            this.editor.setValue(nextProps.value, (this.props.selectFirstLine === true ? -1 : null));
+            if(currentRange && typeof currentRange === "object") {
+                this.editor.getSession().getSelection().setSelectionRange(currentRange);
+            }
         }
         if (nextProps.showGutter !== this.props.showGutter) {
             this.editor.renderer.setShowGutter(nextProps.showGutter);
