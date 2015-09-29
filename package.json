@@ -1,6 +1,6 @@
 {
   "name": "react-ace-wrapper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A React wrapper component for Ace Editor",
   "main": "build/react-ace.min.js",
   "es6": "index.js",
